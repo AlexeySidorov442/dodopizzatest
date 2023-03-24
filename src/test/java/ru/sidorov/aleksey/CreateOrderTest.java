@@ -13,6 +13,7 @@ public class CreateOrderTest {
 
     CityModal cityModal = new CityModal();
     HeaderWithStats headerWithStats = new HeaderWithStats();
+    CookieWarrning cookieWarrning = new CookieWarrning();
     private final String SELECT_CITY = "Усинск";
 
     @BeforeAll
@@ -34,7 +35,10 @@ public class CreateOrderTest {
         //Проверить отображение города в главном меню
         headerWithStats.headerAbout.$(By.linkText("Усинск")).should(Condition.visible);
 
-        //Найти пиццу Цыпленок ранчC
+        //Закрытие куки сообщения
+        cookieWarrning.closeCookieModal();
+
+        //Найти пиццу Цыпленок ранч
         $$("#pizzas a").findBy(text("Цыпленок ранч")).should(Condition.visible);
 
         //Найденную пиццу добавить
