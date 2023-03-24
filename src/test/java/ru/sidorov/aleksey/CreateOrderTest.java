@@ -11,21 +11,30 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class CreateOrderTest {
 
+    CityModal cityModal = new CityModal();
+    HeaderWithStats headerWithStats = new HeaderWithStats();
+    private final String SELECT_CITY = "Усинск";
+
+    @BeforeAll
+    static void beforeAll() {
+        Configuration.browserSize = "1920x1080";
+    }
 
     @Test
     public void createOrderWithPizza(){
         //Открыть сайт
         open("https://dodopizza.ru/");
-        $(".locality-selector-popup").should(Condition.visible);
+
+        //Окно выбора города
+        cityModal.citySelectModalWindow.should(visible);
 
         //Выбрать город усинск для оформления заказа
-        $("input.locality-selector-popup__search-input").click();
-        $("input.locality-selector-popup__search-input").sendKeys("Усинск");
-        $("input.locality-selector-popup__search-input").pressEnter();
+        cityModal.citySearch(SELECT_CITY);
 
-        $(".header__about").$(By.linkText("Усинск")).should(Condition.visible);
+        //Проверить отображение города в главном меню
+        headerWithStats.headerAbout.$(By.linkText("Усинск")).should(Condition.visible);
 
-        //Найти пиццу Цыпленок ранч
+        //Найти пиццу Цыпленок ранчC
         $$("#pizzas a").findBy(text("Цыпленок ранч")).should(Condition.visible);
 
         //Найденную пиццу добавить
