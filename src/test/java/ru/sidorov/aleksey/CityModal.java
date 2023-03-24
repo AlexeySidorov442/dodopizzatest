@@ -6,7 +6,7 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class CityModal {
     public SelenideElement
-            citySelectModalWindow = $("locality-selector-popup"),
+            citySelectModalWindow = $(".locality-selector-popup"),
             citySelectInput = $("input.locality-selector-popup__search-input");
 
     public void citySearch(String city){
