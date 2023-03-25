@@ -2,15 +2,25 @@ package ru.sidorov.aleksey.Tests;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.Allure;
+import io.qameta.allure.Attachment;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import ru.sidorov.aleksey.Pages.*;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 import static io.qameta.allure.Allure.step;
+import static io.qameta.allure.selenide.LogType.DRIVER;
 
 public class CreateOrderTest {
 
@@ -29,10 +39,22 @@ public class CreateOrderTest {
 
     @BeforeAll
     static void beforeAll() {
+        SelenideLogger.addListener("AllureSelenide", new AllureSelenide()
+                .screenshots(true)
+                .savePageSource(true)
+        );
         Configuration.browserSize = "1920x1080";
     }
 
+    @Attachment(value = "Скриншот", type = "image/png")
+    public byte[] takeScreenshot() {
+        return Selenide.screenshot(OutputType.BYTES);
+    }
+
+
+
     @Test
+    @Severity(SeverityLevel.CRITICAL)
     @DisplayName("Проверка основной бизнес цепочки добавления товара в корзину и переход к оформлению заказа")
     public void createOrderWithPizza(){
         //Открыть сайт
@@ -94,13 +116,14 @@ public class CreateOrderTest {
             confirmOrder.selectSauce(SELECT_SAUCE);
             confirmOrder.saucesWindowCloseButton.click();
             confirmOrder.headerInfoOrder.shouldHave(text("2 товара на 979 ₽"));
+            takeScreenshot();
         });
 
 
         step("Оформление заказа", ()->{
            confirmOrder.confirmOrderButton.click();
+            takeScreenshot();
            confirmOrder.logInModal.should(visible);
         });
-
     }
 }
