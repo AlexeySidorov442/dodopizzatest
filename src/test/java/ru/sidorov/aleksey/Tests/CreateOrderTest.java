@@ -2,6 +2,7 @@ package ru.sidorov.aleksey.Tests;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Driver;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.Allure;
@@ -9,13 +10,16 @@ import io.qameta.allure.Attachment;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.selenide.AllureSelenide;
+import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.chrome.ChromeDriver;
 import ru.sidorov.aleksey.Pages.*;
+import ru.sidorov.aleksey.Utils.ServerConfig;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
@@ -24,6 +28,7 @@ import static io.qameta.allure.selenide.LogType.DRIVER;
 
 public class CreateOrderTest {
 
+    //Init all pages
     CityModal cityModal = new CityModal();
     HeaderWithStats headerWithStats = new HeaderWithStats();
     CookieWarrning cookieWarrning = new CookieWarrning();
@@ -32,10 +37,15 @@ public class CreateOrderTest {
     NotificationWindow notificationWindow = new NotificationWindow();
     NavigationPanel navigationPanel = new NavigationPanel();
     ConfirmOrder confirmOrder = new ConfirmOrder();
+
+    //Init constants
     private final String SELECT_CITY = "Усинск";
     private final String SELECT_PIZZA = "Цыпленок ранч";
     private final int ITEM_COUNT = 1;
     private final String SELECT_SAUCE = "Чесночный";
+
+    //Init Owner Library property
+    static ServerConfig cfg = ConfigFactory.create(ServerConfig.class);
 
     @BeforeAll
     static void beforeAll() {
@@ -44,6 +54,7 @@ public class CreateOrderTest {
                 .savePageSource(true)
         );
         Configuration.browserSize = "1920x1080";
+        //Configuration.browser = cfg.browserType();
     }
 
     @Attachment(value = "Скриншот", type = "image/png")

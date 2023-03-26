@@ -27,7 +27,9 @@ dependencies {
             'org.junit.jupiter:junit-jupiter-params:5.7.2',
             'io.qameta.allure:allure-selenide:2.15.0',
             'com.codeborne:selenide:6.12.3'
+
     )
+    implementation group: 'org.aeonbits.owner', name: 'owner', version: '1.0.4'
     compile "org.slf4j:slf4j-api:2.0.6"
     compile "org.slf4j:slf4j-simple:2.0.6"
     compile "org.aspectj:aspectjweaver:1.9.5"
