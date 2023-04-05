@@ -42,21 +42,15 @@ public class CreateOrderTest extends TestBase {
         cookieWarrning
                 .closeCookieModalIfDisplayed();
 
+        navigationSection
+                .selectPizza(SELECT_PIZZA, "pizzas");
 
-        step("Поиск пиццы" + SELECT_PIZZA + " и ее выбор", ()->{
-            //Найти пиццу Цыпленок ранч
-            navigationSection.findItemInSection("pizzas", SELECT_PIZZA).should(visible);
-
-            //Найденную пиццу выбрать
-            navigationSection.selectItem("pizzas", SELECT_PIZZA);
-        });
 
         step("Добавление в корзину из окна доп. опций", ()->{
             productOptions.productName.should(visible);
             productOptions.addProductToBasketButton.click();
         });
 
-        //Отображение всплывающего окна о добавленном товаре
         step("Отображение всплывающего окна с добавленным товаром" + SELECT_PIZZA, ()->{
             notificationWindow.notification.should(visible);
             notificationWindow.notificationProductInfo.should(visible);
@@ -72,14 +66,12 @@ public class CreateOrderTest extends TestBase {
             confirmOrder.headerInfoOrder.shouldHave(text("1 товар на 939 ₽"));
         });
 
-        //Добавление соуса к заказу
         step("Добавление опций к заказу", ()->{
             confirmOrder.addSauceButton.click();
             confirmOrder.selectSauce(SELECT_SAUCE);
             confirmOrder.saucesWindowCloseButton.click();
             confirmOrder.headerInfoOrder.shouldHave(text("2 товара на 979 ₽"));
         });
-
 
         step("Оформление заказа", ()->{
             confirmOrder.confirmOrderButton.click();

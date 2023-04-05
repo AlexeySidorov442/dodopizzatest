@@ -35,7 +35,7 @@ public class DescriptionAboutUs extends TestBase {
             cityModal.citySelectModalWindow.should(visible);
 
             //Выбрать город усинск для оформления заказа
-            cityModal.citySearch(SELECT_CITY);
+            cityModal.selectCity(SELECT_CITY);
         });
 
         step("Переход на страницу " + SELECT_TAB, ()->{
