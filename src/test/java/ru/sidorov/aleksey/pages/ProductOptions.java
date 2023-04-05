@@ -1,4 +1,4 @@
-package ru.sidorov.aleksey.Pages;
+package ru.sidorov.aleksey.pages;
 
 import com.codeborne.selenide.SelenideElement;
 
