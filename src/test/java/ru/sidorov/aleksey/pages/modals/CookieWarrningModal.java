@@ -9,12 +9,6 @@ public class CookieWarrningModal {
     public SelenideElement cookieModal = $(".cookie-policy"),
                             closeButton = cookieModal.$(".cookie-policy__button");
 
-    public void closeCookieModal(){
-        if (cookieModal.exists()) {
-            closeButton.click();
-        }
-    }
-
     @Step("Закрыть модальное окно с запросом разрешения cookie, если отображается")
     public void closeCookieModalIfDisplayed(){
         if (cookieModal.exists()) {

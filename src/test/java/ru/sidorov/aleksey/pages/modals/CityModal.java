@@ -12,11 +12,6 @@ public class CityModal {
             citySelectModalWindow = $(".locality-selector-popup"),
             citySelectInput = $("input.locality-selector-popup__search-input");
 
-    public void citySearch(String city){
-        citySelectInput.click();
-        citySelectInput.sendKeys(city);
-        citySelectInput.pressEnter();
-    }
 
     @Step("Выбрать город {city} в модальном окне выбора города")
     public MainPage selectCity(String city) {
